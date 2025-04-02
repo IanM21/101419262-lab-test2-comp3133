@@ -1,6 +1,8 @@
 <div class="mission-container">
     <h1>SpaceX Missions</h1>
 
+    <app-mission-filter (yearChange)="onYearFilterChange($event)"></app-mission-filter>
+
     <div *ngIf="loading" class="loading">
         Loading mission data...
     </div>
@@ -9,8 +11,16 @@
         {{ error }}
     </div>
 
-    <div class="mission-list" *ngIf="!loading && !error">
-        <div class="mission-item" *ngFor="let mission of missions">
+    <div *ngIf="!loading && !error && filteredMissions.length === 0" class="no-results">
+        No missions match your filter. Try a different year.
+    </div>
+
+    <div *ngIf="!loading && !error && yearFilter && filteredMissions.length > 0" class="filter-info">
+        Showing {{ filteredMissions.length }} missions for year "{{ yearFilter }}"
+    </div>
+
+    <div class="mission-list" *ngIf="!loading && !error && filteredMissions.length > 0">
+        <div class="mission-item" *ngFor="let mission of filteredMissions">
             <div class="mission-header">
                 <h3>{{ mission.mission_name }}</h3>
                 <p class="year">{{ mission.launch_year }}</p>

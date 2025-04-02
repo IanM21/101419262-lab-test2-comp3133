@@ -2,17 +2,17 @@ export interface SpaceXApiResponse {
   flight_number: number;
   mission_name: string;
   launch_year: string;
-  details: string;
+  details?: string;
   rocket: {
     rocket_name: string;
     rocket_type: string;
     second_stage?: {
-      payloads?: {
+      payloads?: Array<{
         payload_id: string;
         orbit_params?: {
-          reference_system: string;
+          reference_system?: string;
         };
-      }[];
+      }>;
     };
   };
   launch_site?: {
@@ -32,9 +32,9 @@ export interface SpaceXApiResponse {
     webcast_liftoff?: number;
   };
   links: {
-    mission_patch_small: string;
-    article_link: string;
-    wikipedia: string;
-    video_link: string;
+    mission_patch_small?: string;
+    article_link?: string;
+    wikipedia?: string;
+    video_link?: string;
   };
 }

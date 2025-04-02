@@ -1,0 +1,10 @@
+<div class="filter-container">
+    <div class="input-group">
+        <label for="yearFilter">Filter by Launch Year:</label>
+        <input type="text" id="yearFilter" [(ngModel)]="yearFilter" (input)="onYearFilterChange()"
+            placeholder="Enter year (e.g. 2020)">
+        <button *ngIf="yearFilter" (click)="clearFilter()" class="clear-button">
+            ✕
+        </button>
+    </div>
+</div>

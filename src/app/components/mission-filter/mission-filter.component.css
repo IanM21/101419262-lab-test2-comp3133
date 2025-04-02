@@ -1,0 +1,43 @@
+.filter-container {
+    margin-bottom: 20px;
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+    max-width: 400px;
+    position: relative;
+}
+
+label {
+    margin-right: 10px;
+    font-weight: 500;
+}
+
+input {
+    padding: 8px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    flex-grow: 1;
+    font-size: 14px;
+}
+
+input:focus {
+    outline: none;
+    border-color: #005288;
+    box-shadow: 0 0 0 2px rgba(0, 82, 136, 0.25);
+}
+
+.clear-button {
+    position: absolute;
+    right: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #6c757d;
+    font-size: 14px;
+}
+
+.clear-button:hover {
+    color: #dc3545;
+}

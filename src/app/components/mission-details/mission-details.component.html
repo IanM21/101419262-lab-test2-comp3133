@@ -1,1 +1,81 @@
-<p>mission-details works!</p>
+<div class="mission-details-container">
+    <button (click)="goBack()" class="back-btn">← Back to Missions</button>
+
+    <div *ngIf="loading" class="loading">
+        Loading mission details...
+    </div>
+
+    <div *ngIf="error" class="error">
+        {{ error }}
+    </div>
+
+    <div *ngIf="mission && !loading && !error" class="mission-details">
+        <div class="mission-header">
+            <div class="mission-title">
+                <h1>{{ mission.mission_name }}</h1>
+                <span class="mission-badge">Flight #{{ mission.flight_number }}</span>
+                <span class="mission-year">{{ mission.launch_year }}</span>
+            </div>
+
+            <div class="mission-patch" *ngIf="mission.links && mission.links.mission_patch_small">
+                <img [src]="mission.links.mission_patch_small" alt="Mission Patch">
+            </div>
+        </div>
+
+        <div class="mission-description" *ngIf="mission.details">
+            <h2>Mission Overview</h2>
+            <p>{{ mission.details }}</p>
+        </div>
+
+        <div class="details-grid">
+            <div class="details-section">
+                <h2>Rocket</h2>
+                <p><strong>Name:</strong> {{ mission.rocket.rocket_name }}</p>
+                <p><strong>Type:</strong> {{ mission.rocket.rocket_type }}</p>
+            </div>
+
+            <div class="details-section">
+                <h2>Launch Information</h2>
+                <p><strong>Launch Year:</strong> {{ mission.launch_year }}</p>
+                <p *ngIf="mission.launch_date_utc">
+                    <strong>Launch Date:</strong> {{ mission.launch_date_utc | date:'medium' }}
+                </p>
+                <p *ngIf="mission.launch_success !== undefined">
+                    <strong>Launch Success:</strong>
+                    <span [class]="mission.launch_success ? 'success' : 'failure'">
+                        {{ mission.launch_success ? 'Success' : 'Failed' }}
+                    </span>
+                </p>
+                <p *ngIf="mission.launch_site">
+                    <strong>Full Name:</strong> {{ mission.launch_site.site_name_long }}
+                </p>
+            </div>
+
+            <div class="details-section failure-details"
+                *ngIf="mission.launch_failure_details && !mission.launch_success">
+                <h2>Failure Details</h2>
+                <p><strong>Time:</strong> {{ mission.launch_failure_details.time }} seconds</p>
+                <p><strong>Altitude:</strong> {{ mission.launch_failure_details.altitude }} km</p>
+                <p><strong>Reason:</strong> {{ mission.launch_failure_details.reason }}</p>
+            </div>
+        </div>
+
+        <div class="links-section">
+            <h2>Related Links</h2>
+            <div class="links-grid">
+                <a [href]="mission.links.article_link" target="_blank" class="link-btn"
+                    *ngIf="mission.links && mission.links.article_link">
+                    <span>News Article</span>
+                </a>
+                <a [href]="mission.links.wikipedia" target="_blank" class="link-btn"
+                    *ngIf="mission.links && mission.links.wikipedia">
+                    <span>Wikipedia</span>
+                </a>
+                <a [href]="mission.links.video_link" target="_blank" class="link-btn video-link"
+                    *ngIf="mission.links && mission.links.video_link">
+                    <span>Watch Video</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
