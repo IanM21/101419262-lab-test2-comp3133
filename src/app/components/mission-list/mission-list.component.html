@@ -1,0 +1,42 @@
+<div class="mission-container">
+    <h1>SpaceX Missions</h1>
+
+    <div *ngIf="loading" class="loading">
+        Loading mission data...
+    </div>
+
+    <div *ngIf="error" class="error">
+        {{ error }}
+    </div>
+
+    <div class="mission-list" *ngIf="!loading && !error">
+        <div class="mission-item" *ngFor="let mission of missions">
+            <div class="mission-header">
+                <h3>{{ mission.mission_name }}</h3>
+                <p class="year">{{ mission.launch_year }}</p>
+            </div>
+
+            <div class="mission-content">
+                <div class="mission-image" *ngIf="mission.links?.mission_patch_small">
+                    <img [src]="mission.links.mission_patch_small" alt="Mission Patch">
+                </div>
+
+                <div class="mission-info">
+                    <p class="details" *ngIf="mission.details">{{ mission.details }}</p>
+                    <p class="no-details" *ngIf="!mission.details">No mission details available</p>
+
+                    <div class="rocket-info">
+                        <p><strong>Rocket:</strong> {{ mission.rocket.rocket_name }}</p>
+                        <p><strong>Type:</strong> {{ mission.rocket.rocket_type }}</p>
+                    </div>
+
+                    <div class="actions">
+                        <button (click)="viewMissionDetails(mission)" class="view-btn">
+                            View Details
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
